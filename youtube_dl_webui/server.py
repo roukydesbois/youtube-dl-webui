@@ -9,9 +9,15 @@ from flask import request
 from multiprocessing import Process
 from copy import deepcopy
 
+# Import the fixer
+from werkzeug.contrib.fixers import ProxyFix
+
 MSG = None
 
 app = Flask(__name__)
+
+# Use the fixer
+app.wsgi_app = ProxyFix(app.wsgi_app)
 
 MSG_INVALID_REQUEST = {'status': 'error', 'errmsg': 'invalid request'}
 
